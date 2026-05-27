@@ -11,17 +11,8 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Preparar pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: 11
-          run-install: false
-
-      - name: Instalar dependencias
-        run: pnpm install --frozen-lockfile
+      - name: Setup pnpm and Node.js
+        uses: ./.github/actions/setup-pnpm-ci-cd@main
 
       - name: Lint
         run: pnpm lint:frontend
@@ -30,17 +21,8 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Preparar pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: 11
-          run-install: false
-
-      - name: Instalar dependencias
-        run: pnpm install --frozen-lockfile
+      - name: Setup pnpm and Node.js
+        uses: ./.github/actions/setup-pnpm-ci-cd@main
 
       - name: Test
         run: pnpm test
@@ -50,17 +32,8 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Preparar pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: 11
-          run-install: false
-
-      - name: Instalar dependencias
-        run: pnpm install --frozen-lockfile
+      - name: Setup pnpm and Node.js
+        uses: ./.github/actions/setup-pnpm-ci-cd@main
 
       - name: Lint
         run: pnpm lint:backend
@@ -69,17 +42,8 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Preparar pnpm
-        uses: pnpm/action-setup@v6
-        with:
-          version: 11
-          run-install: false
-
-      - name: Instalar dependencias
-        run: pnpm install --frozen-lockfile
+      - name: Setup pnpm and Node.js
+        uses: ./.github/actions/setup-pnpm-ci-cd@main
         
       - name: Test
         run: pnpm test
