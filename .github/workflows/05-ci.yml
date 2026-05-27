@@ -7,11 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  ci:
+  frontend-lint:
     runs-on: ubuntu-24.04
-    defaults:
-      run:
-        working-directory: 09-ci-cd
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -26,10 +24,62 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: pnpm lint
+        run: pnpm lint:frontend
+
+  frontend-test:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Preparar pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11
+          run-install: false
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
 
       - name: Test
         run: pnpm test
 
-      - name: Build
-        run: pnpm build
+
+  backend-lint:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Preparar pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11
+          run-install: false
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint:backend
+  
+  backend-test:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Preparar pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          version: 11
+          run-install: false
+
+      - name: Instalar dependencias
+        run: pnpm install --frozen-lockfile
+        
+      - name: Test
+        run: pnpm test
