@@ -26,13 +26,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-        
+
       - name: Setup pnpm and Node.js
         uses: ./.github/actions/setup-pnpm-ci-cd
 
       - name: Test
         run: pnpm test
 
+  frontend-build:
+    needs: [frontend-lint, frontend-test]
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm and Node.js
+        uses: ./.github/actions/setup-pnpm-ci-cd
+
+      - name: Build
+        run: pnpm build
 
   backend-lint:
     runs-on: ubuntu-24.04
@@ -59,3 +72,17 @@ jobs:
         
       - name: Test
         run: pnpm test
+
+  backend-smoke-test:
+    needs: [backend-lint, backend-test]
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup pnpm and Node.js
+        uses: ./.github/actions/setup-pnpm-ci-cd
+
+      - name: Build
+        run: pnpm build
